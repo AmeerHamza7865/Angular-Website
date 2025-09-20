@@ -1,0 +1,142 @@
+<div class="mt-10 container mx-auto p-4">
+  
+    
+<!-- Slider -->
+<div class="mt-10">
+
+
+    <app-slider></app-slider>
+</div>
+
+
+
+
+
+
+<section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">We invest in the world’s potential</h1>
+        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
+           <button (click)="openModal = true" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+Get started
+</button>
+            <a (click)="toggle()" href="#" class="py-3 px-5 sm:ms-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+               {{ visible ? 'Learn less' : 'Learn more' }}
+            </a>  
+        </div>
+    </div>
+</section>
+
+@if(visible){
+
+    <section class="bg-white dark:bg-white">
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum magni placeat eius blanditiis, beatae officiis alias cum excepturi sapiente nemo vitae, nisi laudantium incidunt! Cupiditate minus eos beatae commodi illum.
+        Perferendis nobis vero dolores repudiandae non, nisi incidunt pariatur, consectetur illum, placeat provident enim quae sunt optio et ab veritatis corporis sequi asperiores fuga. Reprehenderit fugiat sunt consequatur nisi neque?
+        A deleniti autem quaerat fugiat cum aut saepe quam alias beatae delectus ut, recusandae aperiam cumque, in asperiores perspiciatis accusamus iusto placeat totam magni reiciendis quidem distinctio. Inventore, doloremque unde.
+        Beatae, quam tempora deleniti incidunt ipsa nesciunt omnis consectetur commodi natus, id quidem dolores officia impedit, quasi explicabo nisi optio recusandae porro minus deserunt sapiente quis? Quas ipsam voluptatem porro.
+        Minus, possimus, accusamus qui repellendus iure vero, molestiae saepe consequuntur ipsam ab nam veritatis temporibus maxime! Qui magnam voluptas numquam quaerat! Ducimus libero quod veritatis doloremque possimus a et corrupti.
+        Repudiandae at reiciendis neque optio ratione porro accusamus laboriosam quisquam, assumenda soluta nostrum illum laudantium error asperiores tempore doloremque? Voluptas amet, officia culpa illum rem odit aliquam eligendi a totam.
+        Consequatur iusto nulla veniam incidunt accusantium quos illum facilis sed eum, debitis, nam, suscipit rerum reprehenderit. Aperiam commodi explicabo aspernatur nesciunt quis sunt, illum libero adipisci temporibus exercitationem vitae odit.
+        Possimus accusamus harum illum porro vel similique distinctio commodi eius animi, itaque pariatur reprehenderit sed dolorum praesentium modi magni fugiat inventore, magnam libero! Voluptatibus corrupti doloremque eius dolor esse provident?
+        Placeat quas saepe accusantium, obcaecati doloremque expedita, ad neque enim dicta dignissimos maxime explicabo rem excepturi, animi veniam tempore. Ut libero quaerat deserunt hic magnam fugiat architecto dolor facilis perspiciatis?
+        Recusandae accusantium blanditiis deleniti reprehenderit culpa pariatur laboriosam enim minima atque iure dolore eum eos, molestiae delectus. Pariatur nostrum, repellendus et iste molestiae, similique doloremque, architecto numquam obcaecati voluptas ut.
+        Omnis facere iusto, aliquid quibusdam, blanditiis corporis pariatur vel voluptas nihil architecto tempora hic est repellat nostrum repudiandae veritatis quo dolorum nesciunt. Enim eum labore consectetur. Omnis reiciendis quis nulla.
+       isquam, error, mollitia nam sunt ipsa nemo, neque veritatis magnam esse distinctio reprehenderit vitae? Error earum, veritatis molestias in deleniti harum quae voluptatem a reiciendis, eaque, ratione repellendus excepturi!
+        Ab repellendus nemo eaque perspiciatis ratione corporis libero, nihil voluptate quae nam ad deleniti non ipsa? Amet officiis praesentium eius, nulla enim laborum doloremque rem ex quibusdam quos, eveniet eligendi?</p>
+    </section>
+}
+
+
+
+
+<!-- Stats Section -->
+<div>
+
+
+    <section class="bg-white dark:bg-gray-900">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
+      <dl class="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-3 dark:text-white">
+          <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">developers</dd>
+          </div>
+          <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">1B+</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">contributors</dd>
+          </div>
+          <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl md:text-4xl font-extrabold">4M+</dt>
+              <dd class="font-light text-gray-500 dark:text-gray-400">organizations</dd>
+          </div>
+      </dl>
+  </div>
+</section>
+</div>
+
+
+
+
+
+<!-- Product Section -->
+<div>
+    <app-product-list></app-product-list>
+</div>
+
+
+
+
+<!-- team Section -->
+<div>
+    <app-team-section></app-team-section>
+</div>
+
+
+
+
+
+
+
+
+
+<div *ngIf="openModal" class="fixed inset-0 flex items-center justify-center bg-black/50">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+  <div class="bg-white p-6 rounded shadow-lg">
+     <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Terms of Service
+                </h3>
+                <button (click)="openModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+                </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button (click)="openModal = false" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button (click)="openModal = false" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+            </div>
+   
+  </div>
+</div>
+<!-- End of modal -->
+
+
+
+
+
+
+
+</div>
