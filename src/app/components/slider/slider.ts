@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 export class Slider {
 
     currentIndex = 0;
-      intervalId: any;
+      // intervalId: any;
 
 
    images = [
@@ -21,19 +21,19 @@ export class Slider {
     'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg'
   ];
 
-ngOnInit() {
-    // Auto slide every 3 seconds
-    this.intervalId = setInterval(() => {
-      this.nextSlide();
-    }, 3000);
-  }
+// ngOnInit() {
+//     // Auto slide every 3 seconds
+//     this.intervalId = setInterval(() => {
+//       this.nextSlide();
+//     }, 3000);
+//   }
 
-  ngOnDestroy() {
-    // Clean up interval when component is destroyed
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
+//   ngOnDestroy() {
+//     // Clean up interval when component is destroyed
+//     if (this.intervalId) {
+//       clearInterval(this.intervalId);
+//     }
+//   }
 
   
   prevSlide() {
