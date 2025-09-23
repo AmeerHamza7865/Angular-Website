@@ -1,0 +1,40 @@
+<div class="bg-white shadow-md rounded-lg overflow-hidden p-4 border border-gray-200">
+
+  <table mat-table [dataSource]="dataSource" class="min-w-full text-sm text-left text-gray-700" matSort>
+
+ <!-- Position Column -->
+<ng-container matColumnDef="position">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">No.</th>
+  <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.position}}</td>
+</ng-container>
+
+<!-- Name Column -->
+<ng-container matColumnDef="name">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Name</th>
+  <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.name}}</td>
+</ng-container>
+
+<!-- Weight Column -->
+<ng-container matColumnDef="weight">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Weight</th>
+  <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.weight}}</td>
+</ng-container>
+
+<!-- Symbol Column -->
+<ng-container matColumnDef="symbol">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Symbol</th>
+  <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.symbol}}</td>
+</ng-container>
+
+    <!-- Header and Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-50"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100 transition"></tr>
+
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    class="mt-4"
+  ></mat-paginator>
+</div>

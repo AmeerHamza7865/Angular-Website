@@ -4,6 +4,6 @@ export interface ProductModel {
   brand: string;
   quantity: number;
   price: number;
-  // imageUrl: string;
   category: string;
+  // imageUrl: string;
 }

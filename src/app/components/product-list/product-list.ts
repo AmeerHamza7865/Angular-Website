@@ -4,6 +4,10 @@ import { CurrencyPipe, NgFor } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ProductModel } from '../../Interface/productModel';
 import { ChangeDetectorRef } from '@angular/core';
+
+
+
+
 @Component({
   selector: 'app-product-list',
   imports: [CurrencyPipe, FormsModule, NgFor],
