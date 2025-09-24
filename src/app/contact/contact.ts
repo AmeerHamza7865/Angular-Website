@@ -3,7 +3,7 @@ import { ProductData } from '../components/product-data/product-data';
 
 @Component({
   selector: 'app-contact',
-  imports: [ProductData],
+  imports: [],
   templateUrl: './contact.html',
   styleUrl: './contact.css'
 })

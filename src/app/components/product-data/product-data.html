@@ -1,32 +1,32 @@
-<div class="bg-white shadow-md rounded-lg overflow-hidden p-4 border border-gray-200">
+<!-- <div class="bg-white shadow-md rounded-lg overflow-hidden p-4 border border-gray-200">
 
   <table mat-table [dataSource]="dataSource" class="min-w-full text-sm text-left text-gray-700" matSort>
 
- <!-- Position Column -->
+
 <ng-container matColumnDef="position">
   <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">No.</th>
   <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.position}}</td>
 </ng-container>
 
-<!-- Name Column -->
+
 <ng-container matColumnDef="name">
   <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Name</th>
   <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.name}}</td>
 </ng-container>
 
-<!-- Weight Column -->
+
 <ng-container matColumnDef="weight">
   <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Weight</th>
   <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.weight}}</td>
 </ng-container>
 
-<!-- Symbol Column -->
+
 <ng-container matColumnDef="symbol">
   <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Symbol</th>
   <td mat-cell *matCellDef="let element" class="px-4 py-2 border-t">{{element.symbol}}</td>
 </ng-container>
 
-    <!-- Header and Row -->
+   
     <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-50"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100 transition"></tr>
 
@@ -37,4 +37,187 @@
     showFirstLastButtons
     class="mt-4"
   ></mat-paginator>
+</div> -->
+
+
+
+<div class="bg-white shadow-md rounded-lg overflow-hidden p-4 border border-gray-200">
+
+  <div class="mt-10">
+  
+    
+  
+  
+    <div class="bg-white shadow-md rounded-lg overflow-hidden p-4 border border-gray-200">
+
+     <div class="mb-4 flex items-center space-x-4">
+  <input
+    matInput
+    placeholder="Filter products"
+    (keyup)="applyFilter($event)"
+    class="border border-gray-300 rounded px-3 py-2 flex-grow max-w-md"
+  />
+
+   <select
+  (change)="filterByCategory($event)"
+  class="border border-gray-300 rounded px-3 py-2 min-w-[180px] sm:min-w-[220px]"
+>
+  <option value="">All Categories</option>
+
+  @for (cat of uniqueCategories; track cat) {
+    <option [value]="cat">{{ cat }}</option>
+  }
+</select>
+  <button
+    (click)="openModal = true"
+    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+  >
+    Add Product
+  </button>
 </div>
+
+  
+    <table mat-table [dataSource]="dataSource" class="min-w-full text-sm text-left text-gray-700" matSort>
+<!-- Index Column -->
+      <ng-container matColumnDef="index">
+  <th mat-header-cell *matHeaderCellDef class="px-4 py-2 bg-gray-100 font-semibold">#</th>
+  <td mat-cell *matCellDef="let row; let i = index" class="px-4 py-2 border-t">
+    {{ i + 1 }}
+  </td>
+</ng-container>
+  
+   <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Name</th>
+    <td mat-cell *matCellDef="let product" class="px-4 py-2 border-t">{{product.name}}</td>
+  </ng-container>
+  
+  <!-- Brand Column -->
+  <ng-container matColumnDef="brand">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Brand</th>
+    <td mat-cell *matCellDef="let product" class="px-4 py-2 border-t">{{product.brand}}</td>
+  </ng-container>
+  
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">Price</th>
+    <td mat-cell *matCellDef="let product" class="px-4 py-2 border-t">{{product.price}}</td>
+  </ng-container>
+  
+  <!-- Category Column -->
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">category</th>
+    <td mat-cell *matCellDef="let product" class="px-4 py-2 border-t">{{product.category}}</td>
+  </ng-container>
+  
+  <!--Quantity Column-->
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 bg-gray-100 font-semibold">quantity</th>
+    <td mat-cell *matCellDef="let product" class="px-4 py-2 border-t">{{product.quantity}}</td>
+  </ng-container>
+
+<!--Action Buttons-->
+  <ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef class="px-4 py-2 bg-gray-100 font-semibold">Actions</th>
+  <td mat-cell *matCellDef="let product" class="px-4 py-2 border-t">
+    <button 
+      (click)="selectedVal(product.id.toString())" 
+      type="button"
+      class="font-medium text-blue-600 cursor-pointer hover:underline mr-2">
+      Edit
+    </button>
+
+    <button 
+      (click)="deleteProduct(product.id.toString())" 
+      type="button"
+      class="font-medium text-red-600 cursor-pointer hover:underline">
+      Delete
+    </button>
+  </td>
+</ng-container>
+  
+      <!-- Header and Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-50"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100 transition"></tr>
+  
+    </table>
+  
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      class="mt-4"
+    ></mat-paginator>
+  </div>
+  
+  </div>
+</div>
+
+
+
+
+@if (openModal) {
+<div class="fixed inset-0 flex items-center justify-center bg-black/50">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <div class="bg-white p-6 rounded shadow-lg">
+            <!-- Modal header -->
+            <div
+                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <h2 class="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                   {{SelectedProduct? "Edit" :"Add" }} Product
+                </h2>
+                <button (click)="toggle()" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form #productForm="ngForm" class="mt-4 space-y-2 lg:mt-5 md:space-y-2" (ngSubmit)="onSubmit(productForm.value)">
+                <div>
+                    <label for="product" class="block mb-2 text-sm font-medium text-gray-900 ">Product Name</label>
+                    <input [ngModel]="SelectedProduct?.name" type="name" name="name" id="name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="mobile watches" required="">
+                </div>
+                <div>
+                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 ">Brand</label>
+                    <input [ngModel]="SelectedProduct?.brand" type="text" name="brand" id="brand"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required="">
+                </div>
+                <div>
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+                    <input [ngModel]="SelectedProduct?.category" type="text" name="category" id="category"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required="">
+                </div>
+                <div>
+                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
+                    <input [ngModel]="SelectedProduct?.price" type="text" name="price" id="price"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required="">
+                </div>
+                <div>
+                    <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 ">Quantity</label>
+                    <input [ngModel]="SelectedProduct?.quantity" type="text" name="quantity" id="quantity"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required="">
+                </div>
+
+                <button
+                    class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+} @else {
+<div></div>
+}

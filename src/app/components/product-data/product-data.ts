@@ -1,57 +1,173 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
+import { ProductService } from '../../service/product-service';
+import { ProductModel } from '../../Interface/productModel';
+import { FormsModule } from '@angular/forms';
 
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];
+
 
 @Component({
   selector: 'app-product-data',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule,MatSortModule,],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule,MatSortModule,FormsModule],
   templateUrl: './product-data.html',
   styleUrls: ['./product-data.css'],
 })
 export class ProductData implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  
+  displayedColumns: string[] = ['index','name', 'brand', 'category', 'price','quantity','actions'];
+ 
+  dataSource = new MatTableDataSource<ProductModel>([]);
+SelectedProduct:ProductModel|undefined ;
+allProducts: ProductModel[] = [];
+
+uniqueCategories: string[] = [];
+
+
+  openModal =  false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+
+
+  ngOnInit():void{
+     this.getProduct();
+  }
+
   ngAfterViewInit(): void {
+   
     this.dataSource.paginator = this.paginator;
+    
     this.dataSource.sort = this.sort;
+ 
     
   }
+
+  
+
+
+  constructor(private productService: ProductService,private cdr: ChangeDetectorRef){
+
+  }
+
+  getProduct(){
+   this.productService.getAllProducts().subscribe((data:ProductModel[])=>{
+    this.dataSource.data = data;
+    this.allProducts=data;
+     this.uniqueCategories=[...new Set(data.map(p=>p.category))];
+    console.log(this.uniqueCategories);
+  });
+}
+
+
+
+
+
+trackByProductId(index: number, product: ProductModel): string {
+  return product.id.toString();
+}
+
+selectedVal(id:string){
+  // this.openModal=false;
+  
+  this.productService.getSelectedProduct(id).subscribe((data:ProductModel)=>{
+    this.SelectedProduct = data;
+
+    // give Angular a tick to notice the false → true change
+    setTimeout(() => {
+      this.openModal = true;
+      this.cdr.detectChanges(); // make sure view updates
+    }, 0);
+  })
+}
+deleteProduct(id:string){
+  this.productService.deleteProduct(id).subscribe((data)=>{
+    console.log(data);
+    this.getProduct();
+  })
+}
+  toggle() {
+    this.openModal = !this.openModal;
+    this.SelectedProduct = undefined;
+
+
+  }
+  
+onSubmit(product: ProductModel) {
+  if (!this.SelectedProduct) {
+    // New product
+    this.productService.addProduct(product).subscribe((data) => {
+      if (data) {
+        console.log('New product added:', data);
+        this.openModal = false;
+        this.getProduct();
+      }
+    });
+  } else {
+    // Update existing product
+    const productdata = { ...product, id: this.SelectedProduct.id };
+    this.productService.updateProduct(productdata).subscribe((data) => {
+      console.log('Product updated:', data);
+      this.SelectedProduct = undefined;
+
+      this.openModal = false;
+      this.getProduct();
+
+    });
+  }
+}
+
+
+// Filter Category Dropdown
+
+selectedCategory: string = '';
+
+filterByCategory(event: Event) {
+  const selectedCategory = (event.target as HTMLSelectElement).value.trim().toLowerCase();
+  this.selectedCategory = selectedCategory;
+  this.applyCombinedFilter();
+}
+
+
+// text field filter
+searchText: string = '';
+
+applyFilter(event: Event) {
+  this.searchText = (event.target as HTMLInputElement).value.trim().toLowerCase();
+  this.applyCombinedFilter();
+}
+
+
+
+
+applyCombinedFilter() {
+  this.dataSource.data = this.allProducts.filter(product => {
+    const matchesCategory = this.selectedCategory ? product.category.toLowerCase() === this.selectedCategory : true;
+    const combinedString = (
+      product.name +
+      product.brand +
+      product.category +
+      product.price +
+      product.quantity
+    ).toString().toLowerCase();
+
+    const matchesSearch = combinedString.includes(this.searchText);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
+
+
+
+
 }

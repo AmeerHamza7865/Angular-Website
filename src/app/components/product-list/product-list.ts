@@ -44,16 +44,16 @@ getAllProducts(): void {
 }
 
 
-
-
-trackByProductId(index: number, product: ProductModel): string {
-  return product.id.toString();
-}
 ngOnInit(){
 
   console.log("Hello from product list");
   this.getProduct();
   this.getAllProducts();
+}
+
+
+trackByProductId(index: number, product: ProductModel): string {
+  return product.id.toString();
 }
 
 selectedVal(id:string){
